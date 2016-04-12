@@ -1,7 +1,9 @@
 package com.company;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,12 +58,55 @@ matcher.group(7));
             houseInfo.setHousePrice(Integer.parseInt(matcher.group(6)));
             houseInfo.setHousePricePer(matcher.group(7));
 
+            JSONObject jsonObject = new JSONObject(houseInfo);
+            System.out.println(jsonObject);
+
+            try {
+                JSONObject jsonObjectOld = ReadJsonFile("/Users/bingoc/IdeaProjects/Log/Spride_01/" + houseInfo.getHouseDataId() + ".json");
+                if(jsonObject.getInt("housePrice") != jsonObjectOld.getInt("housePrice")){
+                    WriteJsonFile("/Users/bingoc/IdeaProjects/Log/Spride_01/" + houseInfo.getHouseDataId() + ".json", jsonObject.toString());
+                    logger.error("\n新房价信息\n" + houseInfo);
+                }
+            } catch (FileNotFoundException e) {
+                try {
+                    WriteJsonFile("/Users/bingoc/IdeaProjects/Log/Spride_01/" + houseInfo.getHouseDataId() + ".json", jsonObject.toString());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                logger.error("\n新房源信息\n" + houseInfo);
+            } catch (IOException e)
+            {
+
+            }
             results.add(houseInfo);
 
             isFind = matcher.find();
-            logger.debug(houseInfo);
+           // logger.debug(houseInfo);
         }
 
         return results;
+    }
+
+    public static synchronized void WriteJsonFile(String filePath, String josn) throws IOException
+    {
+        FileWriter fileWriter = new FileWriter(filePath, true);
+        PrintWriter out = new PrintWriter(fileWriter);
+        //out.write(josn);
+        //out.println();
+        out.println(josn);
+        //out.println();
+        fileWriter.close();
+        out.close();
+    }
+
+    public static JSONObject ReadJsonFile(String filePath) throws IOException
+    {
+        File file = new File(filePath);
+        BufferedReader bufferedReader = null;
+        bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        String string = bufferedReader.readLine();
+        JSONObject jsonObject = new JSONObject(string);
+        return jsonObject;
+
     }
 }
