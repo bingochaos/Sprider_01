@@ -26,7 +26,6 @@ public class SprideHttpGet {
         BufferedReader in = null;
 
         try {
-            System.setProperty("http.keepAlive", "false");
             URL realUrl = new URL(url);
             System.out.println(realUrl + "\n" + url);
             urlConnection = realUrl.openConnection();
