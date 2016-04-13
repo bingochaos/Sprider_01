@@ -15,11 +15,12 @@ public class MyRegularExpression {
 
     //pageUrl
     public static final String pageUrl = "comp-module=.+?page-url=\"(.+?)\\{.*?page-data.+?\"totalPage\":(.+?),\"";
-    //页数
-    public static final String pagesNumber = "page-data=\"{\"totalPage\":(.+?),\"";
 
-    //各页地址
-    public static final String pages = "href=\"(.+?)\" data-page";
+//    //页数
+//    public static final String pagesNumber = "page-data=\"{\"totalPage\":(.+?),\"";
+//
+//    //各页地址
+//    public static final String pages = "href=\"(.+?)\" data-page";
 
 
 }

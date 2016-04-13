@@ -25,7 +25,7 @@ public class PageSpride implements Runnable {
     }
 
     public void run() {
-        String result = new SprideHttpGet().httpGet("http://bj.lianjia.com" + url + pageNum + '/');
+        String result = new SpiderHttpGet().httpGet("http://bj.lianjia.com" + url + pageNum + '/');
         new RegexUrl().RegexForHouses(result, MyRegularExpression.houseInfoExpression);
     }
 }
