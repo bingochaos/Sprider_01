@@ -3,7 +3,7 @@ package com.company;
 /**
  * Created by bingoc on 16/4/11.
  */
-public class PageSpride implements Runnable {
+public class PageSpider implements Runnable {
 
     private String url;
     private int pageNum;

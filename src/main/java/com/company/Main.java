@@ -17,7 +17,7 @@ public class Main  {
         if(pageNum != null)
         {
             for(int i = 1; i < pageNum.getPageNums()+1; i++) {
-                PageSpride pageSpride = new PageSpride();
+                PageSpider pageSpride = new PageSpider();
                 pageSpride.setUrl(pageNum.getPageUrl());
                 pageSpride.setPageNum(i);
                 Thread thread = new Thread(pageSpride);
