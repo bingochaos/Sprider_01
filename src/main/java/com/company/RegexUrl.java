@@ -4,7 +4,9 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +16,17 @@ import java.util.regex.Pattern;
 public class RegexUrl {
 
     private static Logger logger = Logger.getLogger(RegexUrl.class);
+    private final  String logPath;
 
     public RegexUrl() {
+        InputStream inputStream = ClassLoader.getSystemResourceAsStream("config.properties");
+        Properties properties = new Properties();
+        try {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        logPath = properties.getProperty("logPath");
     }
 
     public PageInfo RegexForPages(String targetStr, String patternStr)
@@ -62,21 +73,22 @@ matcher.group(7));
             System.out.println(jsonObject);
 
             try {
-                JSONObject jsonObjectOld = ReadJsonFile("/Users/bingoc/IdeaProjects/Log/Spride_01/" + houseInfo.getHouseDataId() + ".json");
+
+                JSONObject jsonObjectOld = ReadJsonFile(logPath + houseInfo.getHouseDataId() + ".json");
                 if(jsonObject.getInt("housePrice") != jsonObjectOld.getInt("housePrice")){
-                    WriteJsonFile("/Users/bingoc/IdeaProjects/Log/Spride_01/" + houseInfo.getHouseDataId() + ".json", jsonObject.toString());
-                    logger.error("\n新房价信息\n" + houseInfo);
+                    WriteJsonFile(logPath + houseInfo.getHouseDataId() + ".json", jsonObject.toString());
+                    logger.info("\n新房价信息\n" + houseInfo);
                 }
             } catch (FileNotFoundException e) {
                 try {
-                    WriteJsonFile("/Users/bingoc/IdeaProjects/Log/Spride_01/" + houseInfo.getHouseDataId() + ".json", jsonObject.toString());
+                    WriteJsonFile(logPath + houseInfo.getHouseDataId() + ".json", jsonObject.toString());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                logger.error("\n新房源信息\n" + houseInfo);
+                logger.info("\n新房源信息\n" + houseInfo);
             } catch (IOException e)
             {
-
+                e.printStackTrace();
             }
             results.add(houseInfo);
 
@@ -89,12 +101,9 @@ matcher.group(7));
 
     public static synchronized void WriteJsonFile(String filePath, String josn) throws IOException
     {
-        FileWriter fileWriter = new FileWriter(filePath, true);
+        FileWriter fileWriter = new FileWriter(filePath);
         PrintWriter out = new PrintWriter(fileWriter);
-        //out.write(josn);
-        //out.println();
         out.println(josn);
-        //out.println();
         fileWriter.close();
         out.close();
     }
