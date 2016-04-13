@@ -1,10 +1,6 @@
 package com.company;
 
-import apple.laf.JRSUIUtils;
-
-import java.awt.peer.LabelPeer;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 
 public class Main  {
@@ -14,7 +10,7 @@ public class Main  {
 
     public static void main(String[] args)  {
 
-        String result =  new SprideHttpGet().httpGet(url);
+        String result =  new SpiderHttpGet().httpGet(url);
         ArrayList<HouseInfo> houseInfos = new ArrayList<HouseInfo>();
         PageInfo pageNum = new RegexUrl().RegexForPages(result, MyRegularExpression.pageUrl);
         //RegexUrl.getRegexUrlSington().RegexForHouses(result, MyRegularExpression.houseInfoExpression);
