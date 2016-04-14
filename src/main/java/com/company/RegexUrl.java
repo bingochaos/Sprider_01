@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -19,11 +18,19 @@ public class RegexUrl {
     private final  String logPath;
 
     public RegexUrl() {
-        InputStream inputStream = ClassLoader.getSystemResourceAsStream("config.properties");
+        InputStream inputStream;// ClassLoader.getSystemResourceAsStream("/config.properties");
+           File file = new File("src/main/resources/config.properties");
+
+
+
         Properties properties = new Properties();
         try {
+            inputStream = new FileInputStream(file);
             properties.load(inputStream);
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+        e.printStackTrace();
+         }catch (IOException e) {
+            System.out.println(e.toString());
             e.printStackTrace();
         }
         logPath = properties.getProperty("logPath");
