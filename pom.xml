@@ -6,20 +6,6 @@
     <artifactId>Spride_01</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <repositories>
-        <repository>
-            <id>jboss-maven2-release-repository</id>
-            <url>http://repository.jboss.org/maven2/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-
 
     <dependencies>
         <dependency>
