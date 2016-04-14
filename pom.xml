@@ -6,8 +6,27 @@
     <artifactId>Spride_01</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>jboss-maven2-release-repository</id>
+            <url>http://repository.jboss.org/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -27,26 +46,22 @@
     </properties>
 
     <build>
+
         <plugins>
             <plugin>
-                <groupId>com.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
                 <executions>
                     <execution>
-                        <phase>test</phase>
                         <goals>
                             <goal>java</goal>
                         </goals>
-                        <configuration>
-                            <mainClass>com.company.Main</mainClass>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <mainClass>com.company.Main</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
